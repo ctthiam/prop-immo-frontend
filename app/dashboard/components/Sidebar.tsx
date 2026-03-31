@@ -10,6 +10,8 @@ const menuItems = [
   { label: 'Contrats', href: '/dashboard/contracts', icon: '📄' },
   { label: 'Loyers', href: '/dashboard/payments', icon: '💰' },
   { label: 'Relevés', href: '/dashboard/statements', icon: '📊' },
+  { label: 'Travaux', href: '/dashboard/works', icon: '🔧' },
+  { label: 'Prestataires', href: '/dashboard/providers', icon: '👷' },
 ];
 
 export default function Sidebar() {
