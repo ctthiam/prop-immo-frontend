@@ -93,6 +93,19 @@ export default function PaymentsPage() {
     }
   }
 
+  async function downloadQuittancePdf(paymentId: string, reference: string) {
+  try {
+    const res = await api.get(`/rent-payments/${paymentId}/quittance`);
+    const { pdfBase64, filename } = res.data;
+    const link = document.createElement('a');
+    link.href = `data:application/pdf;base64,${pdfBase64}`;
+    link.download = filename;
+    link.click();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
   const statusConfig: Record<string, { label: string; className: string }> = {
     PENDING:   { label: 'En attente', className: 'bg-amber-100 text-amber-700' },
     PAID:      { label: 'Payé',       className: 'bg-green-100 text-green-700' },
@@ -246,9 +259,11 @@ export default function PaymentsPage() {
                         Encaisser
                       </button>
                     ) : payment.status === 'PAID' ? (
-                      <span className="text-slate-400 text-xs">
-                        {payment.paymentMethod}
-                      </span>
+                      <button
+                        onClick={() => downloadQuittancePdf(payment.id, payment.reference)}
+                        className="bg-[#1A3C5E]/10 hover:bg-[#1A3C5E]/20 text-[#1A3C5E] px-3 py-1 rounded-lg text-xs font-medium transition-colors">
+                        🧾 Quittance PDF
+                      </button>
                     ) : null}
                   </td>
                 </tr>

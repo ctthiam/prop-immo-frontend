@@ -90,6 +90,19 @@ export default function ContractsPage() {
     }
   }
 
+  async function downloadContractPdf(contractId: string, reference: string) {
+  try {
+    const res = await api.get(`/contracts/${contractId}/pdf`);
+    const { pdfBase64, filename } = res.data;
+    const link = document.createElement('a');
+    link.href = `data:application/pdf;base64,${pdfBase64}`;
+    link.download = filename;
+    link.click();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
   const statusConfig: Record<string, { label: string; className: string }> = {
     ACTIVE:     { label: 'Actif',     className: 'bg-green-100 text-green-700' },
     RENEWED:    { label: 'Renouvelé', className: 'bg-blue-100 text-blue-700' },
@@ -208,6 +221,7 @@ export default function ContractsPage() {
                 <th className="text-left py-3 px-4 text-slate-500 font-medium">Locataire</th>
                 <th className="text-left py-3 px-4 text-slate-500 font-medium">Loyer TTC</th>
                 <th className="text-left py-3 px-4 text-slate-500 font-medium">Statut</th>
+                <th className="text-left py-3 px-4 text-slate-500 font-medium">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -228,6 +242,13 @@ export default function ContractsPage() {
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusConfig[contract.status]?.className}`}>
                       {statusConfig[contract.status]?.label}
                     </span>
+                  </td>
+                  <td className="py-3 px-4">
+                    <button
+                      onClick={() => downloadContractPdf(contract.id, contract.reference)}
+                      className="bg-[#1A3C5E]/10 hover:bg-[#1A3C5E]/20 text-[#1A3C5E] px-3 py-1 rounded-lg text-xs font-medium transition-colors">
+                      📄 Contrat PDF
+                    </button>
                   </td>
                 </tr>
               ))}
