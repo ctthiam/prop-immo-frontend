@@ -9,6 +9,7 @@ const menuItems = [
   { label: 'Biens', href: '/dashboard/properties', icon: '🏢' },
   { label: 'Contrats', href: '/dashboard/contracts', icon: '📄' },
   { label: 'Loyers', href: '/dashboard/payments', icon: '💰' },
+  { label: 'Relevés', href: '/dashboard/statements', icon: '📊' },
 ];
 
 export default function Sidebar() {
