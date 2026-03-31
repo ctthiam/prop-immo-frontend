@@ -12,6 +12,7 @@ const menuItems = [
   { label: 'Relevés', href: '/dashboard/statements', icon: '📊' },
   { label: 'Travaux', href: '/dashboard/works', icon: '🔧' },
   { label: 'Prestataires', href: '/dashboard/providers', icon: '👷' },
+  { label: 'Messagerie', href: '/dashboard/messages', icon: '💬' },
 ];
 
 export default function Sidebar() {
